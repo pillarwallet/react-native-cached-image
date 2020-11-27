@@ -36,7 +36,8 @@ function ensurePath(path) {
         })
         .catch(err => {
             // ignore folder already exists errors
-            if (err.message.includes('folder already exists')) {
+            // double E in the error code is not a mistake (see POSIX error codes)
+            if (err.code === 'EEXIST' || err.message.includes('already exists')) {
                 return;
             }
             throw err;
